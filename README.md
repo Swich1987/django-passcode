@@ -8,8 +8,8 @@ Django passcode is a project to enable mobile device registration and verificati
 
 #Installation
 
-  - Include ``` register ``` in Installed apps of your project
-  - Add  ``` url(r'^signup/', include('register.urls')) ``` urls.py
+  - Include ``` passcode ``` in Installed apps of your project
+  - Add  ``` url(r'^signup/', include('passcode.urls')) ``` urls.py
 
 
 # Usage
