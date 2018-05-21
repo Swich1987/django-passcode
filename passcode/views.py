@@ -1,13 +1,11 @@
-# Create your views here.
+from passcode.models import UserBase
+from passcode.models import PasscodeVerify
 
-from models import UserBase
-from models import PasscodeVerify
-
-from django.http import HttpResponse
-from django.views.generic import View
+# from django.http import HttpResponse
+# from django.views.generic import View
 
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+# from django.utils.decorators import method_decorator
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -19,24 +17,20 @@ import binascii
 import os
 import re
 
+
 @csrf_exempt
 @api_view(['POST'])
-def Register(request):
+def register(request):
     if request.method == 'POST':
-        
         response_data = {'code' : 'Invalid Data' }
-        
-        #Raise exception in case bad data
         try:
             mobile = request.POST['mobile']
             device_id = request.POST['device_id']
-            
         except:
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
         validate = re.search('^[789]\d{9}$', mobile)
         if validate is None:
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-            #check user already
         try:
             user = UserBase.objects.get(mobile = mobile, device_ident = device_id)
         except UserBase.DoesNotExist:
@@ -77,7 +71,7 @@ def verify_and_create(request):
             device_id = request.POST['device_id']
             passcode = request.POST['passcode']
         except:
-            return Response(response_data,status=status.HTTP_400_BAD_REQUEST)
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             valid = PasscodeVerify.objects.get(mobile = mobile, device_ident = device_id , passcode = passcode, is_verified = False)
