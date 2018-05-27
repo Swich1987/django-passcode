@@ -32,10 +32,10 @@ This must be in INSTALLED_APPS in settings.py:
 
 
 # Usage
-===
+
 ## API
 
-1. Register: POST request to <your_domain>/signup/register/
+### 1. Register: POST request to <your_domain>/signup/register/
 
 Post parameters
    - mobile phone
@@ -52,7 +52,7 @@ On Error:
 {"code" : "Info about error"} 
  ```
 
-2. Verify: POST request to <your_domain>/signup/verify/
+### 2. Verify: POST request to <your_domain>/signup/verify/
 
 Post parameters
      - mobile phone
