@@ -4,28 +4,27 @@ This is the totally reworked fork of original [django-passcode](https://github.c
 
 Here is how it works:
 1. User register on the server using POST request with the mobile phone number and device id.
-2. Receive in response passcode
-2. Send POST request to "verify" endpoint with mobile phone, device_id, and passcode
-4. Receive in response token to access API
+1. Receive in response passcode
+1. Send POST request to "verify" endpoint with mobile phone, device_id, and passcode
+1. Receive in response token to access API
 
-#Features and concept of work
-
+## Features and concept of work
 1. Only 1 token for one set of device_id and phone number. If you request new token for the same set, the old one will be deleted from the system.
-2. Full log of every generated passcode
-3. You can set how often one passcode for same device_id and phone number can be requested
-4. You can set how long time the passcode can be valid
-5. For token management used Knox and basic User model in Django. If automatically generate User with username=mobile_number and password=mobile_number+salt. This is useful if you want to use different authentication methods.
-6. It uses the one-to-one field in MobileDevice model to connect to token, which is connected to User model. This save all tokens, which is generated outside the passcode. If there is already some token in this field, it will use owner of this token for token generation.  So you can create user on your app, add his mobile phone number, device_id, and token to the table, and it will work with no problem.
-7. User created only after successful verification of the passcode
+1. Full log of every generated passcode
+1. You can set how often one passcode for same device_id and phone number can be requested
+1. You can set how long time the passcode can be valid
+1. For token management used Knox and basic User model in Django. If automatically generate User with username=mobile_number and password=mobile_number+salt. This is useful if you want to use different authentication methods.
+1. It uses the one-to-one field in MobileDevice model to connect to token, which is connected to User model. This save all tokens, which is generated outside the passcode. If there is already some token in this field, it will use owner of this token for token generation.  So you can create user on your app, add his mobile phone number, device_id, and token to the table, and it will work with no problem.
+1. User created only after successful verification of the passcode
 
-#Requirments
+## Requirments
   - Django Rest Framework (rest_framework)
   - Knox
   
 This must be in INSTALLED_APPS in settings.py:
 
 
-#Installation
+## Installation
 
   - Include ``` passcode ``` in Installed apps of your project
   - Add  ``` url(r'^signup/', include('passcode.urls')) ``` in urls.py of your project
@@ -33,9 +32,8 @@ This must be in INSTALLED_APPS in settings.py:
 
 
 # Usage
-
-API
 ===
+## API
 
 1. Register: POST request to <your_domain>/signup/register/
 
@@ -44,11 +42,16 @@ Post parameters
    - Device id
 
 Response: JSON response 
+On success: 
 ```  
-On success : {"code" : "Success"} 
-On Error   : {"code" : "Info about error"} 
+{"code" : "Success"} 
  ```
- 
+
+On Error:
+```  
+{"code" : "Info about error"} 
+ ```
+
 2. Verify: POST request to <your_domain>/signup/verify/
 
 Post parameters
@@ -68,8 +71,8 @@ On Error:
   {"code" : "Info about error"} 
  ```
  
- Settings
- ===
+ ## Settings
+ 
  You can set these settings in your settings.py:
  
  PASSCODE_SETTINGS = {
