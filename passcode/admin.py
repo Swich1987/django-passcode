@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserBase,PasscodeVerify
+from .models import PhoneDevice, PasscodeChecksLog
 
-admin.site.register(UserBase)
-admin.site.register(PasscodeVerify)
+admin.site.register(PhoneDevice)
+admin.site.register(PasscodeChecksLog)
